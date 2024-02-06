@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>随机点名</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>随机点名结果</h1>
+    <button onclick="randomName()">点名</button>
+    <p id="randomResult"></p>
+
+    <script>
+        async function fetchNames() {
+            const response = await fetch('names.txt');
+            const data = await response.text();
+            return data.split('\n').filter(name => name.trim() !== '');
+        }
+
+        async function randomName() {
+            const names = await fetchNames();
+            const randomIndex = Math.floor(Math.random() * names.length);
+            const randomName = names[randomIndex];
+            document.getElementById('randomResult').innerText = `被点到的是： ${randomName}`;
+        }
+    </script>
+</body>
+
+</html>
