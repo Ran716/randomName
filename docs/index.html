@@ -49,10 +49,10 @@
 
             for (let i = 0; i < names.length; i++) {
                 resultElement.innerText = `正在点名： ${names[i]}`;
-                await sleep(100); // 调整每个名字之间的延迟时间
+                await sleep(50); // 调整每个名字之间的延迟时间
             }
 
-            await sleep(100); // 显示最终结果前的额外延迟
+            await sleep(50); // 显示最终结果前的额外延迟
 
             const randomIndex = Math.floor(Math.random() * names.length);
             const randomName = names[randomIndex];
