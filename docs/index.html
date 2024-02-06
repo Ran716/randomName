@@ -11,12 +11,25 @@
             text-align: center;
             margin: 50px;
         }
+
+        #randomResult {
+            font-weight: bold;
+            font-size: 60px;
+            /* 修改字体大小 */
+        }
+
+        #startButton {
+            font-size: 30px;
+            /* 设置按钮字体大小 */
+            padding: 10px;
+            /* 设置按钮内边距 */
+        }
     </style>
 </head>
 
 <body>
-    <h1>随机点名结果</h1>
-    <button onclick="randomName()">点名</button>
+    <h1>随机点名</h1>
+    <button onclick="startRandom()">开始点名</button>
     <p id="randomResult"></p>
 
     <script>
@@ -26,11 +39,24 @@
             return data.split('\n').filter(name => name.trim() !== '');
         }
 
-        async function randomName() {
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function startRandom() {
             const names = await fetchNames();
+            const resultElement = document.getElementById('randomResult');
+
+            for (let i = 0; i < names.length; i++) {
+                resultElement.innerText = `正在点名： ${names[i]}`;
+                await sleep(100); // 调整每个名字之间的延迟时间
+            }
+
+            await sleep(100); // 显示最终结果前的额外延迟
+
             const randomIndex = Math.floor(Math.random() * names.length);
             const randomName = names[randomIndex];
-            document.getElementById('randomResult').innerText = `被点到的是： ${randomName}`;
+            resultElement.innerText = `被点到的是： ${randomName}`;
         }
     </script>
 </body>
